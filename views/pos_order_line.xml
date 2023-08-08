@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_customer_employee_form2" model="ir.ui.view">
+        <field name="name">pos.order.customer.employee.form</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='lines']/tree" position="inside">
+                <field name="employee_id" optional="show"/>
+                <field name="comission"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <report
+        id="pos_summary_report"
+        model="report.comission1"
+        string="Comissiones"
+        report_type="qweb-pdf"
+        name="jr_pos_comission.summary"
+        file="jr_pos_comission.summary"
+        print_report_name="'Resumen de comisiones'"
+    />
+
+    <template id="summary">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="o.env.user.lang"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>
+                            Resumen comisiones
+                            
+                          
+                        </h2>
+                        <strong>Fecha:<span t-field="o.start"/>--<span t-field="o.end"/></strong>
+                        <table class="table table-sm">
+                            <tbody>
+                                <tr>
+                                    <th>Empleado</th>
+                                    <th>Producto</th>
+                                    <th>Total vendido</th>
+                                    
+                                    <th>Comision</th>
+                                    
+                                </tr>
+                                <tr t-foreach="o.get_data()" t-as="invoice">
+                                    <td>
+                                        <span t-esc="invoice.employee_id.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="invoice.full_product_name"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="invoice.price_subtotal"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="invoice.comission" t-options='{"widget": "float", "precision": 2}'/>
+                                    </td>
+                                    
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br />
+                        <h3>Total comisiones</h3>
+                        <table class="table table-sm">
+                            <tbody>
+                                <tr>
+                                    <th>Empleado</th>
+                                    <th>Comision Total</th>
+                                   
+                                    
+                                </tr>
+                                <tr t-foreach="o.totales()" t-as="invoice1">
+                                    <td>
+                                        <span t-esc="invoice1[0].name"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="invoice1[1]" t-options='{"widget": "float", "precision": 2}'/>
+                                    </td>
+                                    
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
